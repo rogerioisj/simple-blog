@@ -4,13 +4,15 @@ const bodyParser = require('body-parser')
 const { PrismaClient } = require('@prisma/client')
 const path = require("path");
 const prisma = new PrismaClient()
+const categoryRouter = require('./category/category.controller')
 
 app.set('view engine', 'ejs')
-app.use(express.static("public"))
-app.use(express.static("src/public"))
-app.use(express.static(path.join(__dirname, "node_modules/bootstrap/dist/")))
+app.set('views', path.join(__dirname, 'views'))
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, "../node_modules/bootstrap/dist/")))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use('/', categoryRouter)
 
 const connectDatabase = async () => {
     await prisma.$connect()
