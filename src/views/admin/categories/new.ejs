@@ -1,0 +1,21 @@
+<%- include ('../../partials/header.ejs') %>
+<body>
+<%- include ('../../partials/navbar.ejs') %>
+    <div class="container">
+        <hr>
+        <div class="card">
+            <div class="card-header">
+                <h2>New Categorie</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/categories">
+                    <input class="form-control" type="text" name="title" placeholder="Set title">
+                    <br>
+                    <button class="btn btn-success">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<%- include ('../../partials/footer.ejs') %>
