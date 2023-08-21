@@ -28,7 +28,9 @@
                         <td><%= category.title %></td>
                         <td><%= category.slug %></td>
                         <td>
-                            <button class="btn btn-warning">Edit</button>
+                            <form method="GET" action="/categories/<%= category.id %>" style="display: inline">
+                                <button class="btn btn-warning">Edit</button>
+                            </form>
                             <form method="POST" action="/categories/<%= category.id %>" style="display: inline" onsubmit="confirmDelete(event, this)">
                                 <button class="btn btn-danger">Delete</button>
                             </form>
