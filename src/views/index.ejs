@@ -1,5 +1,25 @@
 <%- include ('partials/header.ejs') %>
 <body>
-    <h1>OLA MUNDO</h1>
+    <%- include ('partials/navbar.ejs') %>
+    <div class="container">
+        <% if(!articles || articles.length < 1) {%>
+            <h1>No one article write</h1>
+        <% } %>
+
+        <% let elementCounter = 0 %>
+        <% let rowCounter = 0 %>
+        <% while (elementCounter < articles.length) { %>
+            <div class="row">
+                <% while (rowCounter < 3) { %>
+                    <div class="col-sm">
+                        <h1><%= articles[elementCounter].title %></h1>
+                    </div>
+                    <% rowCounter++ %>
+                <% } %>
+                <% rowCounter = 0 %>
+            </div>
+            <% elementCounter++ %>
+        <% } %>
+    </div>
 </body>
 <%- include ('partials/footer.ejs') %>
