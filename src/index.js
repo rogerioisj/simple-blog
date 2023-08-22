@@ -23,8 +23,9 @@ const connectDatabase = async () => {
 }
 
 
-app.get('/', (req, res) => {
-    res.render('index')
+app.get('/', async (req, res) => {
+    const articles = await prisma.article.findMany({})
+    res.render('index', { articles: articles })
 })
 
 app.listen(3000, async () => {
