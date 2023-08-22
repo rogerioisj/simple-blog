@@ -17,6 +17,7 @@ router.post('/article', async (req, res) => {
 
     if (!title || !content || !categoryId) {
         res.redirect('/admin/article/new')
+        return;
     }
 
     await prisma.article.create({
@@ -33,6 +34,7 @@ router.post('/article', async (req, res) => {
     })
 
     res.redirect('/articles')
+    return;
 })
 
 router.get('/articles', async (req, res) => {
@@ -43,6 +45,22 @@ router.get('/articles', async (req, res) => {
     })
 
     res.render('admin/articles/list', { articles: articles })
+    return;
+})
+
+router.get('/article/:slug', async (req, res) => {
+    if(!req.params.slug) {
+        res.redirect('/articles')
+        return;
+    }
+
+    const article = await prisma.article.findUnique({
+        where: {
+            slug: req.params.slug
+        }
+    })
+
+    res.render('admin/articles/show', { article: article })
 })
 
 module.exports = router
