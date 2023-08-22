@@ -12,7 +12,12 @@
             <div class="row">
                 <% while (rowCounter < 3) { %>
                     <div class="col-sm">
-                        <h1><%= articles[elementCounter].title %></h1>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= articles[elementCounter].title %></h5>
+                                <p class="card-text">Teste</p>
+                            </div>
+                        </div>
                     </div>
                     <% rowCounter++ %>
                 <% } %>
