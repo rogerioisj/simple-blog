@@ -10,20 +10,20 @@
         <% let rowCounter = 0 %>
         <% while (elementCounter < articles.length) { %>
             <div class="row">
-                <% while (rowCounter < 3) { %>
+                <% while (rowCounter < 3 && elementCounter < articles.length) { %>
                     <div class="col-sm">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title"><%= articles[elementCounter].title %></h5>
+                                <h5 class="card-title"><%= articles[15].title %></h5>
                                 <p class="card-text">Teste</p>
                             </div>
                         </div>
                     </div>
+                    <% elementCounter++ %>
                     <% rowCounter++ %>
                 <% } %>
                 <% rowCounter = 0 %>
             </div>
-            <% elementCounter++ %>
         <% } %>
     </div>
 </body>
