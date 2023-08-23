@@ -28,8 +28,8 @@
                         <td><%= article.title %></td>
                         <td><%= article.slug %></td>
                         <td>
-                            <a href="/categories/<%= article.id %>" class="btn btn-warning">Edit</a>
-                            <form method="POST" action="/article/<%= article.id %>" style="display: inline" onsubmit="confirmDelete(event, this)">
+                            <a href="/article/<%= article.id %>/edit" class="btn btn-warning">Edit</a>
+                            <form method="POST" action="/article/<%= article.id %>/delete" style="display: inline" onsubmit="confirmDelete(event, this)">
                                 <button class="btn btn-danger">Delete</button>
                             </form>
                         </td>
