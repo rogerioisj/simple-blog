@@ -23,9 +23,28 @@ const connectDatabase = async () => {
 }
 
 
+app.get('/index', async (req, res) => {
+    const page = (req.query.page && req.query.page > 0) ? req.query.page : 1;
+    const limit = 6;
+    const count = await prisma.article.count();
+    const articles = await prisma.article.findMany({
+        skip: (+page - 1) * limit,
+        take: limit,
+        include: {
+            category: true
+        },
+        orderBy: {
+            createdAt: 'asc'
+        }
+    })
+
+    const next = count - page * limit
+
+    res.render('index', { articles: articles, page: page, next: next })
+})
+
 app.get('/', async (req, res) => {
-    const articles = await prisma.article.findMany({})
-    res.render('index', { articles: articles })
+    res.redirect('/index')
 })
 
 app.listen(3000, async () => {
