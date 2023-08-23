@@ -38,9 +38,16 @@ router.post('/article', async (req, res) => {
 })
 
 router.get('/articles', async (req, res) => {
+    const page = (req.query.page && req.query.page > 0) ? req.query.page : 1;
+    const limit = 10;
     const articles = await prisma.article.findMany({
+        skip: (+page - 1) * limit,
+        take: limit,
         include: {
             category: true
+        },
+        orderBy: {
+            createdAt: 'asc'
         }
     })
 
