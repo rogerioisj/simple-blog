@@ -78,7 +78,11 @@ router.get('/article/:id/edit', async (req, res) => {
         }
     })
 
-    const categories = await prisma.category.findMany();
+    const categories = await prisma.category.findMany({
+        orderBy: {
+            title: 'asc'
+        }
+    });
 
     res.render('admin/articles/edit', { article: article, categories: categories })
 })
