@@ -63,4 +63,64 @@ router.get('/article/:slug', async (req, res) => {
     res.render('admin/articles/show', { article: article })
 })
 
+router.get('/article/:id/edit', async (req, res) => {
+    if(!req.params.id) {
+        res.redirect('/articles')
+        return;
+    }
+
+    const article = await prisma.article.findUnique({
+        where: {
+            id: req.params.id
+        },
+        include: {
+            category: true
+        }
+    })
+
+    const categories = await prisma.category.findMany();
+
+    res.render('admin/articles/edit', { article: article, categories: categories })
+})
+
+router.post('/article/:id/edit', async (req, res) => {
+    if(!req.params.id) {
+        res.redirect('/articles')
+        return;
+    }
+
+    const article = await prisma.article.update({
+        where: {
+            id: req.params.id
+        },
+        data: {
+            title: req.body.title,
+            content: req.body.content,
+            slug: slugify(req.body.title),
+            category: {
+                connect: {
+                    id: req.body.category
+                }
+            }
+        }
+    })
+
+    res.redirect('/articles')
+})
+
+router.post('/article/:id/delete', async (req, res) => {
+    if(!req.params.id) {
+        res.redirect('/articles')
+        return;
+    }
+
+    await prisma.article.delete({
+        where: {
+            id: req.params.id
+        }
+    })
+
+    res.redirect('/articles')
+})
+
 module.exports = router
