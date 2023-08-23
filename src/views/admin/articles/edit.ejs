@@ -1,0 +1,45 @@
+<%- include ('../../partials/header.ejs') %>
+<body>
+<%- include ('../../partials/navbar.ejs') %>
+    <div class="container">
+        <hr>
+        <div class="card">
+            <div class="card-header">
+                <h2>Edit Article</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/article/<%= article.id %>/edit">
+                    <input class="form-control" type="text" name="title" placeholder="Set title" value="<%= article.title %>">
+                    <br>
+                    <hr>
+                    <label>Category</label>
+                    <select name="category" class="form-control">
+                        <% if(!categories || categories.length < 1) { %>
+                            <option value="">You must register a category first!</option>
+                        <% } %>
+                        <% for (const category of categories) { %>
+                            <option value="<%= category.id %>"><%= category.title %></option>
+                        <% } %>
+                    </select>
+                    <hr>
+                    <textarea class="form-control" name="content" id="article" rows="28"><%= article.content %></textarea>
+                    <br>
+                    <button class="btn btn-success">edit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<%- include ('../../partials/footer.ejs') %>
+<script src="/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector: '#article',
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor textcolor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table contextmenu paste code help wordcount'
+        ]
+    });
+</script>
