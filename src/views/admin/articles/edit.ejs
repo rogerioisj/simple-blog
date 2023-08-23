@@ -18,6 +18,10 @@
                             <option value="">You must register a category first!</option>
                         <% } %>
                         <% for (const category of categories) { %>
+                            <% if(article.category.id === category.id) { %>
+                                <option value="<%= category.id %>" selected><%= category.title %></option>
+                                <% continue; %>
+                            <% } %>
                             <option value="<%= category.id %>"><%= category.title %></option>
                         <% } %>
                     </select>
