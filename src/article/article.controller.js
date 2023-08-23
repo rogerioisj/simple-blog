@@ -100,7 +100,7 @@ router.post('/article/:id/edit', async (req, res) => {
         return;
     }
 
-    const article = await prisma.article.update({
+    await prisma.article.update({
         where: {
             id: req.params.id
         },
