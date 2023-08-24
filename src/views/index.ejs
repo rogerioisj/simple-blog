@@ -1,6 +1,6 @@
 <%- include ('partials/header.ejs') %>
 <body>
-    <%- include ('partials/navbar.ejs') %>
+    <%- include ('partials/navbar.ejs', { user: null }) %>
     <div class="container">
         <% if(!articles || articles.length < 1) {%>
             <h1>No one article write</h1>
