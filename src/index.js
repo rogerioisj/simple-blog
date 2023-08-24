@@ -6,6 +6,7 @@ const path = require("path");
 const prisma = new PrismaClient()
 const categoryRouter = require('./category/category.controller')
 const articleRouter = require('./article/article.controller')
+const userRouter = require('./users/users.controller')
 
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use('/', categoryRouter)
 app.use('/', articleRouter)
+app.use('/', userRouter)
 
 const connectDatabase = async () => {
     await prisma.$connect()
