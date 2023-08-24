@@ -3,12 +3,24 @@
         IgnisCode
     </a>
 
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav me-auto">
         <li class="nav-item">
             <a class="nav-link" href="/categories">Categories</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/articles">Articles</a>
         </li>
+    </ul>
+
+    <ul class="navbar-nav ms-auto">
+        <% if(!!!user) { %>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+        <% } else { %>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        <% } %>
     </ul>
 </nav>
