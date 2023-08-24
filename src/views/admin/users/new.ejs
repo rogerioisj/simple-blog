@@ -1,0 +1,28 @@
+<%- include ('../../partials/header.ejs') %>
+<body>
+<%- include ('../../partials/navbar.ejs') %>
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2>New User</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/user">
+                <label class="form-text" for="name">Name</label>
+                <input class="form-control" type="text" name="name" placeholder="Type the name">
+                <br>
+                <label class="form-text" for="email">Email</label>
+                <input class="form-control" type="email" name="email" placeholder="email@example.com">
+                <br>
+                <label class="form-text" for="password">Password</label>
+                <input class="form-control" type="password" name="password">
+                <br>
+                <button class="btn btn-success">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+<%- include ('../../partials/footer.ejs') %>
