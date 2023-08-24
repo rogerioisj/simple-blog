@@ -3,14 +3,15 @@ const router = express.Router()
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 const slugify = require('slugify')
+const adminAuth = require('../middlewares/auth-admin.middleware')
 
-router.get('/admin/article/new', async (req, res) => {
+router.get('/admin/article/new', adminAuth, async (req, res) => {
     const categories = await prisma.category.findMany();
 
     res.render('admin/articles/new', { categories: categories });
 })
 
-router.post('/article', async (req, res) => {
+router.post('/article', adminAuth, async (req, res) => {
     let title = req.body.title;
     let content = req.body.content;
     let categoryId = req.body.category;
@@ -37,7 +38,7 @@ router.post('/article', async (req, res) => {
     return;
 })
 
-router.get('/articles', async (req, res) => {
+router.get('/articles', adminAuth, async (req, res) => {
     const page = (req.query.page && req.query.page > 0) ? req.query.page : 1;
     const limit = 10;
     const articles = await prisma.article.findMany({
@@ -70,7 +71,7 @@ router.get('/article/:slug', async (req, res) => {
     res.render('admin/articles/show', { article: article })
 })
 
-router.get('/article/:id/edit', async (req, res) => {
+router.get('/article/:id/edit', adminAuth, async (req, res) => {
     if(!req.params.id) {
         res.redirect('/articles')
         return;
@@ -94,7 +95,7 @@ router.get('/article/:id/edit', async (req, res) => {
     res.render('admin/articles/edit', { article: article, categories: categories })
 })
 
-router.post('/article/:id/edit', async (req, res) => {
+router.post('/article/:id/edit', adminAuth, async (req, res) => {
     if(!req.params.id) {
         res.redirect('/articles')
         return;
@@ -119,7 +120,7 @@ router.post('/article/:id/edit', async (req, res) => {
     res.redirect('/articles')
 })
 
-router.post('/article/:id/delete', async (req, res) => {
+router.post('/article/:id/delete', adminAuth, async (req, res) => {
     if(!req.params.id) {
         res.redirect('/articles')
         return;
