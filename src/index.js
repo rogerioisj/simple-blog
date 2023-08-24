@@ -1,19 +1,26 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const { PrismaClient } = require('@prisma/client')
+const {PrismaClient} = require('@prisma/client')
 const path = require("path");
 const prisma = new PrismaClient()
 const categoryRouter = require('./category/category.controller')
 const articleRouter = require('./article/article.controller')
 const userRouter = require('./users/users.controller')
+const session = require('express-session')
 
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
+app.use(session({
+    secret: 'keyboard cat',
+    cookie: {maxAge: 300000},
+    resave: false,
+    saveUninitialized: false
+}))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, "../node_modules/bootstrap/dist/")))
 app.use(express.static(path.join(__dirname, "../node_modules/tinymce/")))
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 app.use('/', categoryRouter)
 app.use('/', articleRouter)
@@ -42,7 +49,7 @@ app.get('/index', async (req, res) => {
 
     const next = count - page * limit
 
-    res.render('index', { articles: articles, page: page, next: next })
+    res.render('index', {articles: articles, page: page, next: next})
 })
 
 app.get('/', async (req, res) => {
